@@ -174,15 +174,20 @@ obj[["prob_abandono", "valor_en_riesgo_cop", "valor_esperado_contacto_cop", "acc
     .to_csv(os.path.join(OUT, "tablas", "muestra_lista_de_contacto.csv"), encoding="utf-8-sig")
 
 # ---------- 5. Gráficos (paleta SP Lab) ----------
-for f in fm.findSystemFonts():
-    if "Inter" in f: fm.fontManager.addfont(f)
-plt.rcParams.update({"font.family": "Inter", "font.size": 10.5, "axes.spines.top": False, "axes.spines.right": False,
+FUENTES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "fuentes")
+for f in sorted(os.listdir(FUENTES)) if os.path.isdir(FUENTES) else []:
+    if f.endswith(".ttf"):
+        fm.fontManager.addfont(os.path.join(FUENTES, f))
+_disp = {x.name for x in fm.fontManager.ttflist}
+TITULO = "Montserrat" if "Montserrat" in _disp else "DejaVu Sans"   # títulos (marca SP Lab)
+TEXTO = "Open Sans" if "Open Sans" in _disp else "DejaVu Sans"      # textos y etiquetas
+plt.rcParams.update({"font.family": TEXTO, "font.size": 10.5, "axes.spines.top": False, "axes.spines.right": False,
                      "figure.facecolor": "#F8FAF7", "axes.facecolor": "#F8FAF7"})
 VERDE, GRIS, CARBON, DORADO, NEUTRO = "#245B45", "#66736C", "#202824", "#D6A64F", "#B9C2BC"
 fmt = lambda v, d=0: f"{v:,.{d}f}".replace(",", "X").replace(".", ",").replace("X", ".")
 PIE = "Datos SINTÉTICOS de TiendaLab, tienda ficticia (20.000 clientes) · Análisis: Sebas Padilla Lab"
 def enc(fig, t, s):
-    fig.text(0.02, 0.965, t, fontsize=15, fontweight="bold", color=CARBON, va="top")
+    fig.text(0.02, 0.965, t, fontsize=15, fontweight="bold", fontfamily=TITULO, color=CARBON, va="top")
     fig.text(0.02, 0.905, s, fontsize=10.5, color=GRIS, va="top")
     fig.text(0.02, 0.02, PIE, fontsize=8, color=GRIS)
 
@@ -194,7 +199,7 @@ for i, v in enumerate(top.importancia):
     ax.text(v + top.importancia.max() * 0.01, i, fmt(v, 3), va="center", fontsize=9.5, color=CARBON)
 ax.set_xticks([]); ax.tick_params(axis="y", length=0, colors=CARBON)
 for s in ["left", "bottom"]: ax.spines[s].set_visible(False)
-enc(fig, "Los días sin comprar son la señal más fuerte; las entregas tarde, la más accionable", "Importancia por permutación: cuánto cae la precisión del modelo (PR-AUC) si se desordena cada variable")
+enc(fig, "Días sin comprar y entregas tarde: las señales que más pesan", "Importancia por permutación: cuánto cae la precisión del modelo (PR-AUC) si se desordena cada variable")
 fig.savefig(os.path.join(OUT, "graficos", "01_que_pesa_mas.png"), dpi=200); plt.close(fig)
 
 # 5.2 Curva de captura

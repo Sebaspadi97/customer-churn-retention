@@ -77,6 +77,7 @@ La tabla completa está en `05b_sensibilidad_supuestos`. La decisión depende m�
 | `graficos/02_curva_captura.png` | % de abandonos capturados según % contactado |
 | `graficos/03_curva_ganancia.png` | Ganancia neta según cuántos clientes se contactan |
 | `scripts/01_generar_datos.py` · `scripts/02_modelo_y_decision.py` | Código reproducible (semilla 42) |
+| `fuentes/` | Tipografías de la marca (Montserrat y Open Sans, licencia SIL Open Font License) usadas en los gráficos |
 
 Para reproducir: `pip install -r requirements.txt`, luego `python scripts/01_generar_datos.py datos/clientes_tiendalab_sinteticos.csv` y `python scripts/02_modelo_y_decision.py datos/clientes_tiendalab_sinteticos.csv .`
 
@@ -85,11 +86,11 @@ Para reproducir: `pip install -r requirements.txt`, luego `python scripts/01_gen
 - **Una sola foto en el tiempo:** en producción se validaría con cortes posteriores (validación temporal).
 - **Predecir abandono no es predecir quién responde a la campaña.** El siguiente paso es un modelo de *uplift* con grupo de control.
 - La importancia por permutación muestra asociación, no causa.
-- Gráficos en tipografía Inter; para el sitio se rehacen en Montserrat / Open Sans.
 
 ## Licencia
 - **Código** (`scripts/`): © 2026 Sebastián Padilla Castaño. Todos los derechos reservados. Puedes leerlo y ejecutarlo para revisar el análisis, pero no reutilizarlo ni redistribuirlo sin autorización.
 - **Datos, tablas y gráficos:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.es). Los datos sintéticos (`datos/`), las tablas y los gráficos son creación del autor y se comparten bajo CC BY 4.0.
+- **Tipografías** (`fuentes/`): Montserrat y Open Sans, bajo SIL Open Font License 1.1 (ver `fuentes/OFL-*.txt`).
 - Ver `LICENSE.md`.
 
 ---
